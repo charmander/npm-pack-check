@@ -8,7 +8,7 @@ npm() {
     if [[ "$#" = 1 && pack = "$1" ]]; then
         npm-pack-check
     else
-        npm "$@"
+        command npm "$@"
     fi
 }
 ```
