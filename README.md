@@ -5,11 +5,10 @@ This shouldn’t be run on untrusted packages. `prepack` and `postpack` scripts 
 
 ```sh
 npm() {
-    if [[ pack = "$1" ]]; then
-        echo 'Use npm-pack-check instead' >&2
-        return 1
+    if [[ "$#" = 1 && pack = "$1" ]]; then
+        npm-pack-check
+    else
+        npm "$@"
     fi
-
-    npm "$@"
 }
 ```
