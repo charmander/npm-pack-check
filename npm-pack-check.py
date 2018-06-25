@@ -81,7 +81,13 @@ with tempfile.TemporaryDirectory() as temp:
                 with io.TextIOWrapper(tar.extractfile(entry), 'utf-8') as f:
                     required.extend(find_requires(f.read(), name))
 
-    missing = [p for p in package_info['files'] if p not in names]
+    files = package_info.get('files')
+
+    if files is None:
+        print('\n  \x1b[31m✗\x1b[0m package.json missing a "files" entry\n', file=sys.stderr)
+        raise SystemExit(1)
+
+    missing = [p for p in files if p not in names]
 
     if missing:
         print('\n  \x1b[31m✗\x1b[0m missing:', file=sys.stderr)
